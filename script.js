@@ -1,8 +1,8 @@
-var matrix = [];
-var a = 55;
-var b = 70;
-var grassCount = 10;
-var grassEaterCount = 20;
+const matrix = [];
+let a = 55;
+let b = 70;
+let grassCount = 10;
+let grassEaterCount = 20;
 
 function kerparner(qanak, kerpar) {
     var p = 0;

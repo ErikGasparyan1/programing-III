@@ -71,7 +71,7 @@ remove() {
         matrix[y][x] = 0;
     }
     matrix[this.y][this.x] = 0;
-    for (var i in bombArr) {
+    for (let i in bombArr) {
         if (!(this.x == bombArr[i].x && this.y == bombArr[i].y)) continue;
         bombArr.splice(i, 1);
         break;

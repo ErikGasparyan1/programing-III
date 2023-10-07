@@ -21,11 +21,11 @@ class Antivirus {
      }
      
         chooseCell(character) {
-            var found = [];
+            const found = [];
             this.getNewCoordinates()
-            for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
+            for (let i in this.directions) {
+            let x = this.directions[i][0];
+            let y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length){
             if (matrix[y][x] == character) {
                 found.push(this.directions[i]);
@@ -37,7 +37,7 @@ class Antivirus {
     }
    
     eat() {
-        let foods = this.chooseCell(4)
+        let foods = this.chooseCell(1,2,3,4,5)
         let food = random(foods)
         if (food) {
             this.energy++;
@@ -91,7 +91,7 @@ class Antivirus {
     die() {
         console.log(11);
         matrix[this.y][this.x] = 0;
-        for (var i in antivirusArr) {
+        for (let i in antivirusArr) {
             if (this.x == antivirusArr[i].x && this.y == antivirusArr[i].y) {
                 antivirusArr.splice(i, 1);
                 break;
