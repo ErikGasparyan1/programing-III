@@ -1,4 +1,6 @@
-class Grass {
+var random = require("./random");
+
+module.exports = class Grass {
     constructor(x, y, index) {
        this.x = x;
        this.y = y;
@@ -16,6 +18,7 @@ class Grass {
         [this.x + 1, this.y + 1]
     ];
 }
+
    
     chooseCell(character) {
         var found = [];
