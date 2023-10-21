@@ -1,50 +1,33 @@
-var random = require("./random");
+const LivingCreature = require("./livingCreature")
+const random = require("./random");
 
-module.exports = class Grass {
+module.exports = class Grass extends LivingCreature {
     constructor(x, y, index) {
-       this.x = x;
-       this.y = y;
-       this.index = index;
-       this.multiply = 0;
+        super(x, y, index)
 
-       this.directions = [
-        [this.x - 1, this.y - 1],
-        [this.x    , this.y - 1],
-        [this.x + 1, this.y - 1],
-        [this.x - 1, this.y    ],
-        [this.x + 1, this.y    ],
-        [this.x - 1, this.y + 1],
-        [this.x    , this.y + 1],
-        [this.x + 1, this.y + 1]
-    ];
-}
-
-   
-    chooseCell(character) {
-        var found = [];
-        for (let i in this.directions) {
-        let x = this.directions[i][0];
-        let y = this.directions[i][1];
-        if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length){
-        if (matrix[y][x] == character) {
-            found.push(this.directions[i]);
-        }
-      }
-    } 
-    return found;
-}
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
+    }
     mul() {
+        grassST++;
         this.multiply++;
-        let newCell = random(this.chooseCell(0));
-        // console.log(newCell, this.multiply);
-        if (this.multiply >= 5 && newCell) {
-           let newGrass = new Grass(newCell[0], newCell[1], this.index);
+        var newCell = random(this.chooseCell(0));
+        if (this.multiply >= 7 && newCell) {
+            const newGrass = new Grass(newCell[0], newCell[1], this.index);
             grassArr.push(newGrass);
             matrix[newCell[1]][newCell[0]] = 1;
-            this.multiply = 0;  
+            this.multiply = 0;
         }
     }
-    
+
 }
 
 

@@ -1,44 +1,31 @@
-var random = require("./random");
+const LivingCreature = require("./livingCreature")
+const random = require("./random");
 
-module.exports = class Virus {
-    constructor(x,y,index) {
-        this.x = x;
-        this.y = y;
+module.exports = class Virus extends LivingCreature {
+    constructor(x, y, index) {
+        super(x, y, index)
         this.energy = 20;
-        this.index = index;
         this.directions = [];
     }
 
-    getNewCoordinates(){
+    getNewCoordinates() {
         this.directions = [
-             [this.x - 1, this.y - 1],
-             [this.x    , this.y - 1],
-             [this.x + 1, this.y - 1],
-             [this.x - 1, this.y    ],
-             [this.x + 1, this.y    ],
-             [this.x - 1, this.y + 1],
-             [this.x    , this.y + 1],
-             [this.x + 1, this.y + 1]
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
         ];
-     }
-     
-        chooseCell(character) {
-            const found = [];
-            this.getNewCoordinates()
-            for (let i in this.directions) {
-            let x = this.directions[i][0];
-            let y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length){
-            if (matrix[y][x] == character) {
-                found.push(this.directions[i]);
-            }
-        }
-        
-        } 
-        return found;
+    }
+    chooseCell(character) {
+        this.getNewCoordinates()
+        return super.chooseCell(character)
     }
     mul() {
-        var newCell = random(this.chooseCell(1,2,3));
+        var newCell = random(this.chooseCell(1, 2, 3));
         if (newCell) {
             const newvirus = new Virus(newCell[0], newCell[1], this.index);
             virusArr.push(newvirus);
@@ -48,7 +35,7 @@ module.exports = class Virus {
     }
 
     eat() {
-        let foods = this.chooseCell(1,2,3)
+        let foods = this.chooseCell(1, 2, 3)
         let food = random(foods)
         if (food) {
             this.energy++;
@@ -79,8 +66,7 @@ module.exports = class Virus {
             if (this.energy >= 30) {
                 this.mul()
             }
-            else if(this.energy >= 70)
-            {
+            else if (this.energy >= 70) {
                 this.die();
             }
         }

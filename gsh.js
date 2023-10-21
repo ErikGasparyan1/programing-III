@@ -1,11 +1,10 @@
-var random = require("./random");
+const LivingCreature = require("./livingCreature")
+const random = require("./random");
 
-module.exports = class Gishatich {
+module.exports = class Gishatich extends LivingCreature {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
+        super(x, y, index)
         this.energy = 15;
-        this.index = index;
         this.directions = [];
     }
 
@@ -21,26 +20,14 @@ module.exports = class Gishatich {
             [this.x + 1, this.y + 1]
         ];
     }
-
     chooseCell(character) {
-      var found = [];
         this.getNewCoordinates()
-        for (let i in this.directions) {
-            let x = this.directions[i][0];
-            let y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-
-        }
-        return found;
+        return super.chooseCell(character)
     }
     mul() {
-       var newCell = random(this.chooseCell(2));
+        var newCell = random(this.chooseCell(2));
         if (newCell) {
-            const newGSH = new Gishatich(newCell[0], newCell[1], this.index);
+            let newGSH = new Gishatich(newCell[0], newCell[1], this.index);
             gshArr.push(newGSH);
             matrix[newCell[1]][newCell[0]] = 3;
             this.energy = 15;
@@ -49,7 +36,7 @@ module.exports = class Gishatich {
     }
 
     eat() {
-        let foods = this.chooseCell(2)
+        let foods = this.chooseCell(1,2,3,4,5)
         let food = random(foods)
         if (food) {
             this.energy++;
