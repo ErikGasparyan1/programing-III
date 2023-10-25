@@ -36,7 +36,7 @@ module.exports = class Gishatich extends LivingCreature {
     }
 
     eat() {
-        let foods = this.chooseCell(1,2,3,4,5)
+        let foods = this.chooseCell(1, 2, 3, 4, 5)
         let food = random(foods)
         if (food) {
             this.energy++;
@@ -49,6 +49,12 @@ module.exports = class Gishatich extends LivingCreature {
             for (let i in grassEaterArr) {
                 if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1);
+                    break;
+                }
+            }
+            for (let i in grassArr) {
+                if (newX == grassArr[i].x && newY == grassArr[i].y) {
+                    grassArr.splice(i, 1);
                     break;
                 }
             }

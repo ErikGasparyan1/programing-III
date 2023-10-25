@@ -57,12 +57,7 @@ module.exports = class Virus extends LivingCreature {
                     break;
                 }
             }
-            for (let i in grassEaterArr) {
-                if (newX == grassEaterArr[i].x && newY == grassEaterArr[i].y) {
-                    grassEaterArr.splice(i, 1);
-                    break;
-                }
-            }
+
             if (this.energy >= 30) {
                 this.mul()
             }

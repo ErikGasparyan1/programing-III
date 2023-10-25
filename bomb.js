@@ -100,5 +100,9 @@ module.exports = class Bomb {
             if (!(gshArr[i].x == x && gshArr[i].y == y)) continue;
             gshArr.splice(i, 1);
         }
+        for (const i in grassArr) {
+            if (!(grassArr[i].x == x && grassArr[i].y == y)) continue;
+            grassArr.splice(i, 1);
+        }
     }
 }

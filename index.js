@@ -9,7 +9,7 @@ app.get("/", function (req, res) {
   res.redirect("index.html");
 });
 
-server.listen(3000, function () {
+server.listen(3001, function () {
   console.log("App is running on port 3000");
 });
 
@@ -26,7 +26,7 @@ const Gishatich = require('./gsh')
 const Antivirus = require('./antivirus')
 const Bomb = require('./bomb')
 const Virus = require('./virus')
-const Weather = require('./weather')
+const Fire = require('./fire')
 
 
 grassArr = [];
@@ -36,12 +36,13 @@ gshArr = [];
 virusArr = [];
 antivirusArr = [];
 bombArr = [];
-grassCount = 10;
-grassEaterCount = 20;
+fireArr = [];
 matrix = [];
-grassST = 0;
+grassCount = 0;
+grassCount2 = 0;
 const a = 55;
 const b = 70;
+
 
 for (let i = 0; i < a; i++) {
   matrix.push([]);
@@ -63,23 +64,25 @@ function createGame() {
     }
   }
 
-  kerparner(30, 2);
   kerparner(300, 1);
+  kerparner(30, 2);
   kerparner(40, 3);
   kerparner(40, 4);
   kerparner(25, 5);
   kerparner(10, 6);
+  kerparner(10, 7);
 
   for (let y = 0; y < matrix.length; ++y) {
     for (let x = 0; x < matrix[y].length; ++x) {
       if (matrix[y][x] == 1) {
         let gr = new Grass(x, y, 1);
         grassArr.push(gr);
-        grassST++;
+        grassCount++;
       }
       else if (matrix[y][x] == 2) {
         let gre = new GrassEater(x, y, 2)
         grassEaterArr.push(gre)
+        grassCount2++;
       }
       else if (matrix[y][x] == 3) {
         let gsh = new Gishatich(x, y, 3)
@@ -98,8 +101,8 @@ function createGame() {
         bombArr.push(bomb)
       }
       else if (matrix[y][x] == 7) {
-        let weather = new weather(x, y, 7)
-        weather.Arr.push(weather)
+        let fire = new Fire(x, y, 7)
+        fireArr.push(fire)
       }
     }
   }
@@ -125,19 +128,11 @@ function drawGame() {
   for (let i in bombArr) {
     bombArr[i].start();
   }
+  for (let i in fireArr) {
+    fireArr[i].eat();
+  }
   io.emit("matrix", matrix)
 }
-
-// function statistic(grassST) {
-//   console.log("grass", grass);
-//   for (let y = 0; y < matrix.length; ++y) {
-//     for (let x = 0; x < matrix[y].length; ++x) {
-//       if (matrix[y][x] == 1) {
-//         grassST++
-//       }
-//     }
-//   }
-// }
 
 createGame()
 
@@ -145,11 +140,10 @@ let intervalID;
 
 function startGame() {
   clearInterval(intervalID)
-  createGame()
   intervalID = setInterval(() => {
     drawGame()
-    
-    io.emit("grassST", grassST)
+    io.emit("grassCount", grassCount)
+    io.emit("grassCount2", grassCount2)
   }, 200)
 }
 

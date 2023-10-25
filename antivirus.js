@@ -1,7 +1,7 @@
 const LivingCreature = require("./livingCreature")
 const random = require("./random");
 
-module.exports = class Antivirus extends LivingCreature{
+module.exports = class Antivirus extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index)
         this.energy = 20;
@@ -40,6 +40,12 @@ module.exports = class Antivirus extends LivingCreature{
             for (let i in virusArr) {
                 if (newX == virusArr[i].x && newY == virusArr[i].y) {
                     virusArr.splice(i, 1);
+                    break;
+                }
+            }
+            for (let i in grassArr) {
+                if (newX == grassArr[i].x && newY == grassArr[i].y) {
+                    grassArr.splice(i, 1);
                     break;
                 }
             }
