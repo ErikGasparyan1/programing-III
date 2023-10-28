@@ -88,7 +88,6 @@ module.exports = class Bomb {
             this.removeObject(x, y)
         }
         this.bursted = true;
-        console.log(1);
     }
 
     removeObject(x, y) {

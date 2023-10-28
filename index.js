@@ -30,7 +30,7 @@ const Fire = require('./fire')
 
 
 grassArr = [];
-weatherArr = [];
+
 grassEaterArr = [];
 gshArr = [];
 virusArr = [];
@@ -39,9 +39,12 @@ bombArr = [];
 fireArr = [];
 matrix = [];
 grassCount = 0;
-grassCount2 = 0;
+grassEaterCount = 0;
+fireCount = 0;
+day = 0;
+weather = 'winter';
 const a = 55;
-const b = 70;
+const b = 75;
 
 
 for (let i = 0; i < a; i++) {
@@ -65,12 +68,12 @@ function createGame() {
   }
 
   kerparner(300, 1);
-  kerparner(30, 2);
-  kerparner(40, 3);
-  kerparner(40, 4);
-  kerparner(25, 5);
+  kerparner(60, 2);
+  kerparner(75, 3);
+  kerparner(25, 4);
+  kerparner(20, 5);
   kerparner(10, 6);
-  kerparner(10, 7);
+  kerparner(15, 7);
 
   for (let y = 0; y < matrix.length; ++y) {
     for (let x = 0; x < matrix[y].length; ++x) {
@@ -82,7 +85,7 @@ function createGame() {
       else if (matrix[y][x] == 2) {
         let gre = new GrassEater(x, y, 2)
         grassEaterArr.push(gre)
-        grassCount2++;
+        grassEaterCount++;
       }
       else if (matrix[y][x] == 3) {
         let gsh = new Gishatich(x, y, 3)
@@ -103,6 +106,7 @@ function createGame() {
       else if (matrix[y][x] == 7) {
         let fire = new Fire(x, y, 7)
         fireArr.push(fire)
+        fireCount++;
       }
     }
   }
@@ -132,6 +136,25 @@ function drawGame() {
     fireArr[i].eat();
   }
   io.emit("matrix", matrix)
+  io.emit("weather", weather)
+
+  day++;
+
+  if (day <= 20) {
+    weather = 'winter'
+  }
+  else if (day > 20 && day <= 40) {
+    weather = 'spring'
+  }
+  else if (day > 40 && day <= 60) {
+    weather = 'summer'
+  }
+  else if (day > 60 && day <= 80) {
+    weather = 'autumn'
+  }
+  else if (day == 81) {
+    day = 0;
+  }
 }
 
 createGame()
@@ -143,7 +166,9 @@ function startGame() {
   intervalID = setInterval(() => {
     drawGame()
     io.emit("grassCount", grassCount)
-    io.emit("grassCount2", grassCount2)
+    io.emit("grass", grassArr.length)
+    io.emit("grassEaterCount", grassEaterCount)
+    io.emit("fireCount", fireCount)
   }, 200)
 }
 

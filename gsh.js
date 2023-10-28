@@ -52,11 +52,15 @@ module.exports = class Gishatich extends LivingCreature {
                     break;
                 }
             }
-            for (let i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-                    grassArr.splice(i, 1);
-                    break;
-                }
+            for (const i in grassArr) {
+                if (!(grassArr[i].x == newX && grassArr[i].y == newY)) continue;
+                grassArr.splice(i, 1);
+            
+            }
+            for (const i in fireArr) {
+                if (!(fireArr[i].x == newX && fireArr[i].y == newY)) continue;
+                fireArr.splice(i, 1);
+            
             }
             if (this.energy >= 20) {
                 this.mul()

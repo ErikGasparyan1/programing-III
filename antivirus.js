@@ -43,9 +43,9 @@ module.exports = class Antivirus extends LivingCreature {
                     break;
                 }
             }
-            for (let i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-                    grassArr.splice(i, 1);
+            for (let i in fireArr) {
+                if (newX == fireArr[i].x && newY == fireArr[i].y) {
+                    fireArr.splice(i, 1);
                     break;
                 }
             }
@@ -83,7 +83,6 @@ module.exports = class Antivirus extends LivingCreature {
     }
 
     die() {
-        console.log(11);
         matrix[this.y][this.x] = 0;
         for (let i in antivirusArr) {
             if (this.x == antivirusArr[i].x && this.y == antivirusArr[i].y) {

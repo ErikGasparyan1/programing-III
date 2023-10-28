@@ -49,11 +49,18 @@ module.exports = class Virus extends LivingCreature {
                 if (newX == grassArr[i].x && newY == grassArr[i].y) {
                     grassArr.splice(i, 1);
                     break;
+                   
                 }
             }
             for (let i in gshArr) {
                 if (newX == gshArr[i].x && newY == gshArr[i].y) {
                     gshArr.splice(i, 1);
+                    break;
+                }
+            }
+            for (let i in fireArr) {
+                if (newX == fireArr[i].x && newY == fireArr[i].y) {
+                    fireArr.splice(i, 1);
                     break;
                 }
             }

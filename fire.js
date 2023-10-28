@@ -4,7 +4,7 @@ const random = require("./random");
 module.exports = class Fire extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index)
-        this.energy = 8;
+        this.energy = 11;
         this.directions = [];
     }
 
@@ -31,7 +31,8 @@ module.exports = class Fire extends LivingCreature{
             let newfire = new Fire(newCell[0], newCell[1], this.index);
             fireArr.push(newfire);
             matrix[newCell[1]][newCell[0]] = 7;
-            this.energy = 8;
+            this.energy = 11;
+            fireCount++;
         }
     }
 
@@ -46,11 +47,9 @@ module.exports = class Fire extends LivingCreature{
             matrix[food[1]][food[0]] = 7
             this.x = newX
             this.y = newY
-            for (let i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-                    grassArr.splice(i, 1);
-                    break;
-                }
+            for (const i in grassArr) {
+                if (!(grassArr[i].x == newX && grassArr[i].y == newY)) continue;
+                grassArr.splice(i, 1);
             }
             if (this.energy >= 10) {
                 this.mul()
